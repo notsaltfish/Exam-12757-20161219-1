@@ -12,16 +12,16 @@
    	<input type="hidden" name="id" value ="${obj.id}"/>   <br>
 title:   	<input type="text" name="title" value ="${obj.title}"/>   <br>
    	<br>     
-     language: 		<select name="languageId" >
+     language: 		<select name="languageId"  style="width:125px">
 	<c:forEach items="${lans }" var="lan">
    			<option value="${lan.id }" >${lan.name }</option>
    			
   		</c:forEach>
    		</select>
   
-   	<br>
-   	description:<input type="text" name="description" value ="${obj.description}"/>   <br>
-   		<input type="submit" name="sub"  value="确认"/>
+   	<br><br>
+   	description:<input type="text"  style="width:600px" name="description" value ="${obj.description}"/>   <br>
+   		<br><input type="submit" name="sub"  value="确认"/>
    </form>
 
 

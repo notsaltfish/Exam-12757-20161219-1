@@ -12,15 +12,15 @@
    	<input type="hidden" name="id" />   <br>
 title:   	<input type="text" name="title" />   <br>
    	<br>     
-     language: 		<select name="languageId" >
+     language: 		<select name="languageId" style="width:125px" >
 	<c:forEach items="${lans }" var="lan">
    			<option value="${lan.id }" >${lan.name }</option>
   		</c:forEach>
    		</select>
   
-   	<br>
-   	description:<input type="text" name="description" />   <br>
-   		<input type="submit" name="sub"  value="确认"/>
+   	<br><br>
+   	description:<input type="text" name="description"  style="width:600px"/>   <br>
+   	<br>	<input type="submit" name="sub"  value="确认"/>
    </form>
 
 
