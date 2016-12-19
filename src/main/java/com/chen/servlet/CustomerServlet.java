@@ -19,6 +19,7 @@ import com.chen.util.PageUtil;
 
 /**
  * Servlet implementation class CustomerServlet
+ * @author chenyong
  */
 public class CustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,26 +47,31 @@ public class CustomerServlet extends HttpServlet {
 			String firstName = request.getParameter("firstName");
 			//firstName="mary";
 			HttpSession session = request.getSession();
+			//如果操作符为登录并且名字不为空
 			if(op!=null&&op.equals("login")&&firstName!=null){
-				
 				Customer customer=customerService.getCustomer(firstName);
+				//如果该名字没有对应的顾客，就重新返回登录页面
 				if(customer==null){
 					response.sendRedirect("login.jsp");
+					//否则则登录成功
 				}else{
-					
 					pagenation(request,response,session);
 					session.setAttribute("customer", customer);
 					response.sendRedirect("films.jsp");
 				}
 			}
-			
 			else{
-				
 				response.sendRedirect("login.jsp");
 			}
 			
 	}
 	
+	/**
+	 * 该方法是一个分页的工具
+	 * @param request
+	 * @param response
+	 * @param session
+	 */
 	private void pagenation(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		int count = filmService.getCount();

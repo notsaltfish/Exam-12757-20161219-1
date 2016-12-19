@@ -18,6 +18,7 @@ import com.chen.util.PageUtil;
 
 /**
  * Servlet implementation class FilmServlet
+ * @author chenyong
  */
 public class FilmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,18 +42,18 @@ public class FilmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String op = request.getParameter("op");
 		HttpSession session = request.getSession();
-		if(op!=null&&op.equals("delete")){
+		if(op!=null&&op.equals("delete")){//删除电影
 			String id = request.getParameter("id");
 			filmService.deletById(id);
 			pagenation(request,response,session);
 			response.sendRedirect("films.jsp");
-		}else if(op!=null&&op.equals("toModify")){
+		}else if(op!=null&&op.equals("toModify")){//前往修改页面
 			String id = request.getParameter("id");
 			 Map<String,Object> maps = filmService.findById(id); 
 			session.setAttribute("obj", maps.get("film"));
 			session.setAttribute("lans", maps.get("lans"));
 			response.sendRedirect("update.jsp");
-		}else if(op!=null&&op.equals("modify")){
+		}else if(op!=null&&op.equals("modify")){//执行修改操作
 			String id = request.getParameter("id");
 			String languageId = request.getParameter("languageId");
 			String title = request.getParameter("title");
@@ -65,12 +66,12 @@ public class FilmServlet extends HttpServlet {
 			filmService.update(film);
 			pagenation(request,response,session);
 			response.sendRedirect("films.jsp");
-		}else if(op!=null&&op.equals("toAdd")){
+		}else if(op!=null&&op.equals("toAdd")){//前往添加页面
 			List<Film> films = filmService.getAllFilms();
 			 	List<Language> lans = filmService.getLanguages(); 
 				session.setAttribute("lans", lans);
 			response.sendRedirect("add.jsp");
-		}else if(op!=null&&op.equals("add")){
+		}else if(op!=null&&op.equals("add")){//执行添加操作。
 			String languageId = request.getParameter("languageId");
 			String title = request.getParameter("title");
 			String description = request.getParameter("description");
@@ -81,7 +82,7 @@ public class FilmServlet extends HttpServlet {
 			filmService.add(film);
 			pagenation(request,response,session);
 			response.sendRedirect("films.jsp");
-	}else if(op!=null&&op.equals("pageQuery")){
+	}else if(op!=null&&op.equals("pageQuery")){//执行分页查询
 		pagenation(request,response,session);
 		
 		//List<Film> films = filmService.getAllFilms();
@@ -92,6 +93,12 @@ public class FilmServlet extends HttpServlet {
 		
 	}
 
+	/**
+	 * 分页方法
+	 * @param request
+	 * @param response
+	 * @param session
+	 */
 	private void pagenation(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		int count = filmService.getCount();

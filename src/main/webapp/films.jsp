@@ -41,6 +41,7 @@
 						<td><a href="film.action?op=toModify&id=${film.id}">修改</a></td>
 					</tr>
 				</c:forEach>
+				<!-- 分页部分 -->
 				 <tr style="text-align: center" class="loan_tr">
 				<td colspan="9" style="text-align: center">
 						<font>当前页${page.curPage }</font>

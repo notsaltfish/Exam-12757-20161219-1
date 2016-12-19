@@ -31,6 +31,11 @@ public class LoginFilter implements Filter{
 		
 		Customer user =(Customer) request.getSession().getAttribute("customer");
 		String path = request.getServletPath();
+		/*
+		 * 判断 当用户没有登录的时候 访问的连接不是登录页面和customer.action的
+		 * 时候才拦截 因为如果用户本身访问的是登录页面，然后还去过滤的话 就会一直存在也
+		 * 死循环
+		 */
 		if(user==null&&!path.equals("/login.jsp")&&!path.equals("/customer.action")){
 			response.sendRedirect("/Exam-12757-20161219-1/login.jsp");
 		}else{
