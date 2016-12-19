@@ -53,31 +53,8 @@ public class CustomerServlet extends HttpServlet {
 					response.sendRedirect("login.jsp");
 				}else{
 					
-					int count = filmService.getCount();
-					//调用分页工具类<=>逻辑代码
-					PageUtil pageUtil=new PageUtil(20, count);
-					int curPage=1;
-					String strCurPage=request.getParameter("pageNum");
-					if(strCurPage!=null){
-						curPage = Integer.parseInt(strCurPage);
-					}
-					// 处理页码逻辑
-					if (curPage <= 1) {
-
-						pageUtil.setCurPage(1);
-					} else if (curPage >= pageUtil.getMaxPage()) {
-
-						pageUtil.setCurPage(pageUtil.getMaxPage());
-					} else {
-						pageUtil.setCurPage(curPage);
-					}
-					
-					List<Film> films = filmService.findAllFilms(curPage, 10);
-					
-					session.setAttribute("page", pageUtil);
-					//List<Film> films = filmService.getAllFilms();
+					pagenation(request,response,session);
 					session.setAttribute("customer", customer);
-					session.setAttribute("films",films);
 					response.sendRedirect("films.jsp");
 				}
 			}
@@ -87,6 +64,33 @@ public class CustomerServlet extends HttpServlet {
 				response.sendRedirect("login.jsp");
 			}
 			
+	}
+	
+	private void pagenation(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+		int count = filmService.getCount();
+		//调用分页工具类<=>逻辑代码
+		PageUtil pageUtil=new PageUtil(9, count);
+		int curPage=1;
+		String strCurPage=request.getParameter("pageNum");
+		if(strCurPage!=null){
+			curPage = Integer.parseInt(strCurPage);
+		}
+		// 处理页码逻辑
+		if (curPage <= 1) {
+
+			pageUtil.setCurPage(1);
+		} else if (curPage >= pageUtil.getMaxPage()) {
+
+			pageUtil.setCurPage(pageUtil.getMaxPage());
+		} else {
+			pageUtil.setCurPage(curPage);
+		}
+		
+		List<Film> films = filmService.findAllFilms(curPage, 9);
+		
+		session.setAttribute("page", pageUtil);
+		session.setAttribute("films",films);
 	}
 
 }

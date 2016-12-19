@@ -44,8 +44,7 @@ public class FilmServlet extends HttpServlet {
 		if(op!=null&&op.equals("delete")){
 			String id = request.getParameter("id");
 			filmService.deletById(id);
-			List<Film> films = filmService.getAllFilms();
-			session.setAttribute("films",films);
+			pagenation(request,response,session);
 			response.sendRedirect("films.jsp");
 		}else if(op!=null&&op.equals("toModify")){
 			String id = request.getParameter("id");
@@ -64,8 +63,7 @@ public class FilmServlet extends HttpServlet {
 			film.setTitle(title);
 			film.setDescription(description);
 			filmService.update(film);
-			List<Film> films = filmService.getAllFilms();
-			session.setAttribute("films",films);
+			pagenation(request,response,session);
 			response.sendRedirect("films.jsp");
 		}else if(op!=null&&op.equals("toAdd")){
 			List<Film> films = filmService.getAllFilms();
@@ -81,13 +79,24 @@ public class FilmServlet extends HttpServlet {
 			film.setTitle(title);
 			film.setDescription(description);
 			filmService.add(film);
-			List<Film> films = filmService.getAllFilms();
-			session.setAttribute("films",films);
+			pagenation(request,response,session);
 			response.sendRedirect("films.jsp");
 	}else if(op!=null&&op.equals("pageQuery")){
+		pagenation(request,response,session);
+		
+		//List<Film> films = filmService.getAllFilms();
+	
+		response.sendRedirect("films.jsp");
+	}
+			
+		
+	}
+
+	private void pagenation(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
 		int count = filmService.getCount();
 		//调用分页工具类<=>逻辑代码
-		PageUtil pageUtil=new PageUtil(20, count);
+		PageUtil pageUtil=new PageUtil(9, count);
 		int curPage=1;
 		String strCurPage=request.getParameter("pageNum");
 		if(strCurPage!=null){
@@ -104,15 +113,12 @@ public class FilmServlet extends HttpServlet {
 			pageUtil.setCurPage(curPage);
 		}
 		
-		List<Film> films = filmService.findAllFilms(curPage, 10);
+		List<Film> films = filmService.findAllFilms(curPage, 9);
 		
 		session.setAttribute("page", pageUtil);
-		//List<Film> films = filmService.getAllFilms();
 		session.setAttribute("films",films);
-		response.sendRedirect("films.jsp");
 	}
-			
-		
-	}
+	
+	
 
 }

@@ -37,7 +37,7 @@
 		<div>
 			<table class="query_form_table" border="0" cellPadding="3"
 				cellSpacing="0">
-				<tr>
+				<tr style="text-align:center;font-size: 18px;font-weight: bold ">
 					<td>film_id</td>
 					<td>title</td>
 					<td>description</td>
