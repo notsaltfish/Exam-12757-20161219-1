@@ -14,6 +14,7 @@ import com.chen.util.DbUtil;
 public class FilmDaoImpl implements FilmDao{
 
 	@Override
+	//根据条件查询电影
 	public List<Film> getFilms(String conditions) {
 		List<Film> films = new ArrayList<Film>();
 		Film film = null;
