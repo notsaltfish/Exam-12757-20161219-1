@@ -61,6 +61,9 @@ public class FilmServiceImpl implements FilmService {
 		return filmDao.getFilms(condition);
 	}
 	@Override
+	/**
+	 * 查询所有电影的总数
+	 */
 	public int getCount() {
 		// TODO Auto-generated method stub
 		

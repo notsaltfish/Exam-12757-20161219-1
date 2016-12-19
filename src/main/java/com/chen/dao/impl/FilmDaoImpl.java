@@ -105,6 +105,7 @@ public class FilmDaoImpl implements FilmDao{
 			              +", description= '"+film.getDescription()
 			              +"' where film_id = "+film.getId();
 		DbUtil.executeUpdate(sql, null);
+		DbUtil.CloseAll();
 	}
 
 	@Override
@@ -115,6 +116,7 @@ public class FilmDaoImpl implements FilmDao{
 		params.add(film.getDescription());
 		params.add(film.getLanguageId());
 		DbUtil.executeUpdate(sql, params);
+		DbUtil.CloseAll();
 	}
 
 	@Override
@@ -129,6 +131,7 @@ public class FilmDaoImpl implements FilmDao{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		DbUtil.CloseAll();
 		return count;
 	}
 
