@@ -14,6 +14,7 @@ import com.chen.entity.Film;
 import com.chen.entity.Language;
 import com.chen.service.FilmService;
 import com.chen.service.impl.FilmServiceImpl;
+import com.chen.util.PageUtil;
 
 /**
  * Servlet implementation class FilmServlet
@@ -83,6 +84,32 @@ public class FilmServlet extends HttpServlet {
 			List<Film> films = filmService.getAllFilms();
 			session.setAttribute("films",films);
 			response.sendRedirect("films.jsp");
+	}else if(op!=null&&op.equals("pageQuery")){
+		int count = filmService.getCount();
+		//调用分页工具类<=>逻辑代码
+		PageUtil pageUtil=new PageUtil(20, count);
+		int curPage=1;
+		String strCurPage=request.getParameter("pageNum");
+		if(strCurPage!=null){
+			curPage = Integer.parseInt(strCurPage);
+		}
+		// 处理页码逻辑
+		if (curPage <= 1) {
+
+			pageUtil.setCurPage(1);
+		} else if (curPage >= pageUtil.getMaxPage()) {
+
+			pageUtil.setCurPage(pageUtil.getMaxPage());
+		} else {
+			pageUtil.setCurPage(curPage);
+		}
+		
+		List<Film> films = filmService.findAllFilms(curPage, 10);
+		
+		session.setAttribute("page", pageUtil);
+		//List<Film> films = filmService.getAllFilms();
+		session.setAttribute("films",films);
+		response.sendRedirect("films.jsp");
 	}
 			
 		

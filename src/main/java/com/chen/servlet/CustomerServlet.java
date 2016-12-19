@@ -15,6 +15,7 @@ import com.chen.service.CustomerService;
 import com.chen.service.FilmService;
 import com.chen.service.impl.CustomerServiceImpl;
 import com.chen.service.impl.FilmServiceImpl;
+import com.chen.util.PageUtil;
 
 /**
  * Servlet implementation class CustomerServlet
@@ -43,7 +44,7 @@ public class CustomerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String op =  request.getParameter("op");
 			String firstName = request.getParameter("firstName");
-			firstName="mary";
+			//firstName="mary";
 			HttpSession session = request.getSession();
 			if(op!=null&&op.equals("login")&&firstName!=null){
 				
@@ -51,12 +52,37 @@ public class CustomerServlet extends HttpServlet {
 				if(customer==null){
 					response.sendRedirect("login.jsp");
 				}else{
-					List<Film> films = filmService.getAllFilms();
+					
+					int count = filmService.getCount();
+					//调用分页工具类<=>逻辑代码
+					PageUtil pageUtil=new PageUtil(20, count);
+					int curPage=1;
+					String strCurPage=request.getParameter("pageNum");
+					if(strCurPage!=null){
+						curPage = Integer.parseInt(strCurPage);
+					}
+					// 处理页码逻辑
+					if (curPage <= 1) {
+
+						pageUtil.setCurPage(1);
+					} else if (curPage >= pageUtil.getMaxPage()) {
+
+						pageUtil.setCurPage(pageUtil.getMaxPage());
+					} else {
+						pageUtil.setCurPage(curPage);
+					}
+					
+					List<Film> films = filmService.findAllFilms(curPage, 10);
+					
+					session.setAttribute("page", pageUtil);
+					//List<Film> films = filmService.getAllFilms();
 					session.setAttribute("customer", customer);
 					session.setAttribute("films",films);
 					response.sendRedirect("films.jsp");
 				}
-			}else{
+			}
+			
+			else{
 				
 				response.sendRedirect("login.jsp");
 			}

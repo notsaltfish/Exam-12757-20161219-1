@@ -49,13 +49,35 @@
 						<td>${film.id }</td>
 						<td>${film.title }</td>
 						<td>${film.description }</td>
-						<td>${film.languageId }</td>
+						<td>${film.languageName }</td>
 						<td><a class="deleteId"
 							href="film.action?op=delete&id=${film.id}">删除</a></td>
 						<td><a href="film.action?op=toModify&id=${film.id}">修改</a></td>
 					</tr>
 				</c:forEach>
+				 <tr style="text-align: center" class="loan_tr">
+				<td colspan="9" style="text-align: center">
+						<font>当前页${page.curPage }</font>
+						<c:if test="${page.curPage==1 }">
+								首页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</c:if><c:if test="${page.curPage>1}">
+							<a href="${pageContext.request.contextPath }/film.action?op=pageQuery&pageNum=1">首页</a>
+								<a href="${pageContext.request.contextPath}/film.action?op=pageQuery&pageNum=${page.curPage-1 }">上一页</a>
+						</c:if>
+						<c:forEach var="i" begin="1"  end="${page.maxPage }" varStatus="status">
+								<c:if test="${i!=page.curPage&&status.index<20 }">
+								<a href="${pageContext.request.contextPath }/film.action?op=pageQuery&pageNum=${i}">${ i }</a>
+								</c:if>
+						</c:forEach>
+						<c:if test="${ page.curPage<page.maxPage}">
+								<a href="${pageContext.request.contextPath }/film.action?op=pageQuery&pageNum=${page.curPage+1 }">下一页</a>
+							<a href="${pageContext.request.contextPath }/film.action?op=pageQuery&pageNum=${page.maxPage }">末页</a>
+						</c:if>
+			</td>
+				</tr>
 			</table>
+	  	             
+	  	            
 		<%-- 	<hand:page page="${page }"></hand:page> --%>
 		</div>
 	</form>

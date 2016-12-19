@@ -54,6 +54,19 @@ public class FilmServiceImpl implements FilmService {
 		
 		return lans;
 	}
+	@Override
+	public List<Film> findAllFilms(int curPage, int pageSize) {
+		String condition = "limit "+(curPage-1)*pageSize+","+pageSize;
+		
+		return filmDao.getFilms(condition);
+	}
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		
+		return filmDao.getCount();
+	}
 
+	
 	
 }

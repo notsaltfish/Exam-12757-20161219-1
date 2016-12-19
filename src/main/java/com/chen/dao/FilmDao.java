@@ -13,4 +13,6 @@ public void update(Film film);
 
 public void add(Film film);
 
+public int getCount();
+
 }

@@ -117,5 +117,20 @@ public class FilmDaoImpl implements FilmDao{
 		DbUtil.executeUpdate(sql, params);
 	}
 
+	@Override
+	public int getCount() {
+		String sql = "select count(*) from film";
+		ResultSet rs = DbUtil.getResultSet(sql);
+		int count=0;
+		try {
+			rs.next();
+			count= rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+
 	
 }

@@ -19,4 +19,9 @@ public void update(Film film);
 public void add(Film film);
 
 public List<Language> getLanguages();
+
+
+public List<Film> findAllFilms(int curPage, int i);
+
+public int getCount();
 }
