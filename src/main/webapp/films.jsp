@@ -9,21 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	$(function() {
-		$(".deleteId").click(function() {
-			var username = $(this).parents("tr").find("td:eq(0)").text();
-			var flag = confirm("您真的要删除" + username + "吗?");
-			if (flag) {
-				return true;
-			}
-			return false;
-		});
-		
-		$("#new").click(function() {
-			window.location.href = "film.action?op=toAdd";
-			return false;
-		});
-	});
+	
 
 </script>
 </head>
@@ -31,8 +17,8 @@
 	<form action="#">
 		<div class="page_title">films</div>
 		<div class="button_bar">
-			<a href="film.action?op=toAdd">新建</a>
-			<button class="common_button" onclick="document.forms[0].submit();">查询</button>
+			<button><a href="film.action?op=toAdd" style="font-size: 16px;">新建</a></button>
+			<!-- <button class="common_button" onclick="document.forms[0].submit();">查询</button> -->
 		</div>
 		<div>
 			<table class="query_form_table" border="0" cellPadding="3"
